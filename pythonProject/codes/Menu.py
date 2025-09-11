@@ -23,5 +23,5 @@ class Menu:
         text_font = pygame.font.Font('Lucida Sans Typewriter', text_size)
         text_surf = font.render(text, True, text_color).convert_alpha()
         text_rect = text_surf.get_rect(center = text_center_pos)
-        self.window.blit(source=text_surf, dest=text_rect)  
+        self.window.blit(source=text_surf, dest=text_rect)
         pass
