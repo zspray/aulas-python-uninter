@@ -1,6 +1,7 @@
 import pygame
 
 from codes.Const import WIN_HEIGHT, WIN_WIDTH
+from codes.Level import Level
 from codes.Menu import Menu
 
 
@@ -14,6 +15,12 @@ class Game:
         print('Loop Start')
         while True:
             menu = Menu(self.window)
-            menu.run(self.window)
+            menu_return= menu.run(self.window)
+
+            if menu_return in [1, 2, 3]:
+                level = Level(self.window, 'Level1', menu_return)
+                level_return = level.run()
+            else:
+                pass
             pass
 
