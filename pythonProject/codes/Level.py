@@ -1,6 +1,8 @@
+import random
+
 import pygame
 
-from codes.Const import COLOR_BLUE, COLOR_ORANGE, WIN_HEIGHT, COLOR_YELLOW
+from codes.Const import COLOR_BLUE, COLOR_ORANGE, WIN_HEIGHT, COLOR_YELLOW, EVENT_ENEMY
 from codes.Entity import Entity
 from codes.EntityFactory import EntityFactory
 
@@ -13,7 +15,12 @@ class Level:
         self.game_mode = game_mode # 1=1P, 2=2P COOP, 3=2P COMP
         self.entity_list: list[Entity] = []
         self.entity_list.extend(EntityFactory.get_entity('Level1Bg'))
+        self.entity_list.append(EntityFactory.get_entity('Player1'))
 
+        if self.game_mode in [2, 3]:
+            self.entity_list.append(EntityFactory.get_entity('Player2'))
+
+        pygame.time.set_timer(EVENT_ENEMY, 4000)
 
     def run(self):
         pygame.mixer_music.load(f'asset/{self.name}.wav')
@@ -28,6 +35,9 @@ class Level:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                     quit()
+                if event.type == EVENT_ENEMY:
+                    choice= random.choice(('Enemy1','Enemy2'))
+                    self.entity_list.append(EntityFactory.get_entity(choice))
 
 
             # printed text
