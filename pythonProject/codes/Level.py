@@ -3,8 +3,11 @@ import random
 import pygame
 
 from codes.Const import COLOR_BLUE, COLOR_ORANGE, WIN_HEIGHT, COLOR_YELLOW, EVENT_ENEMY
+from codes.Enemy import Enemy
 from codes.Entity import Entity
 from codes.EntityFactory import EntityFactory
+from codes.EntityMediator import EntityMediator
+from codes.Player import Player
 
 
 class Level:
@@ -31,6 +34,10 @@ class Level:
             for ent in self.entity_list:
                 self.window.blit(source=ent.surf, dest=ent.rect)
                 ent.move()
+                if isinstance(ent, (Player,Enemy)):
+                    shoot = ent.shoot()
+                    if shoot is not None:
+                        self.entity_list.append(shoot)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -47,6 +54,10 @@ class Level:
 
 
             pygame.display.flip()
+
+            #Collisions
+            EntityMediator.verify_collision(entity_list=self.entity_list)
+            EntityMediator.verify_health(entity_list=self.entity_list)
 
         pass
 

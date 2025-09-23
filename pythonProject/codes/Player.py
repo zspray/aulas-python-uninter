@@ -1,12 +1,14 @@
 import pygame
 
-from codes.Const import PLAYER_KEY_UP, PLAYER_KEY_DOWN, PLAYER_KEY_LEFT, PLAYER_KEY_RIGHT
+from codes.Const import PLAYER_KEY_UP, PLAYER_KEY_DOWN, PLAYER_KEY_LEFT, PLAYER_KEY_RIGHT, PLAYER_KEY_SHOOT
 from codes.Entity import Entity
+from codes.PlayerShot import PlayerShot
 
 
 class Player(Entity):
     def __init__(self, name: str, position: tuple):
         super().__init__(name, position)
+        self.shot_delay = 20
         self.speed = 3
 
     def move(self,):
@@ -21,3 +23,12 @@ class Player(Entity):
             self.rect.move_ip(self.speed, 0)
         pass
 
+    def shoot(self):
+        self.shot_delay -= 1
+        if self.shot_delay == 0:
+            self.shot_delay = 20
+            pressed_key = pygame.key.get_pressed()
+            if pressed_key[PLAYER_KEY_SHOOT[self.name]]:
+                return PlayerShot(name=f'{self.name}Shot', position=(self.rect.centerx, self.rect.centery))
+
+        pass
