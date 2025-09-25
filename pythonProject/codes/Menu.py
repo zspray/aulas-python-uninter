@@ -1,7 +1,7 @@
 import pygame
 from pygame import Rect, Surface
 
-from codes.Const import WIN_WIDTH, COLOR_BLUE, MENU_OPTION, COLOR_ORANGE, COLOR_YELLOW
+from codes.Const import WIN_WIDTH, BLUE, MENU_OPTION, ORANGE, YELLOW
 
 
 class Menu:
@@ -17,14 +17,14 @@ class Menu:
         pygame.mixer_music.play(-1)
         while True:
             self.window.blit(source=self.surf, dest=self.rect)
-            self.menu_text(50, "Cloud",COLOR_BLUE, ((WIN_WIDTH / 2),70))
-            self.menu_text(50, "Forces", COLOR_BLUE, ((WIN_WIDTH / 2), 110))
+            self.menu_text(50, "Cloud", BLUE, ((WIN_WIDTH / 2), 70))
+            self.menu_text(50, "Forces", BLUE, ((WIN_WIDTH / 2), 110))
 
             for i in range(len(MENU_OPTION)):
                 if i == menu_option:
-                    self.menu_text(30, MENU_OPTION[i], COLOR_YELLOW, ((WIN_WIDTH / 2), (170 + i * 30)))
+                    self.menu_text(30, MENU_OPTION[i], YELLOW, ((WIN_WIDTH / 2), (170 + i * 30)))
                 else:
-                    self.menu_text(30, MENU_OPTION[i],COLOR_ORANGE, ((WIN_WIDTH / 2),(170+i*30)))
+                    self.menu_text(30, MENU_OPTION[i], ORANGE, ((WIN_WIDTH / 2), (170 + i * 30)))
 
             pygame.display.flip()
             # Check for all events
