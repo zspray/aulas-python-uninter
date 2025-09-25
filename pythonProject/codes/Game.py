@@ -18,8 +18,13 @@ class Game:
             menu_return= menu.run(self.window)
 
             if menu_return in [1, 2, 3]:
-                level = Level(self.window, 'Level1', menu_return)
-                level_return = level.run()
+                player_score = [0,0]
+                level = Level(self.window, 'Level1', menu_return, player_score)
+                level_return = level.run(player_score)
+                if level_return:
+                    level = Level(self.window, 'Level2', menu_return, player_score)
+                    level_return = level.run(player_score)
+
             else:
                 pass
             pass
