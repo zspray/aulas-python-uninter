@@ -55,7 +55,7 @@ class Menu:
                             pygame.mixer_music.stop()
                             return 3
                         if menu_option == 3:
-                            print('Score')
+                            return 4 # Show Score
                             pass
                         if menu_option == 4:
                             print('Exit')
