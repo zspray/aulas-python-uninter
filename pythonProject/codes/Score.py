@@ -1,7 +1,7 @@
 import datetime
 
 import pygame
-from pygame import Surface, Rect, KEYDOWN, K_RETURN, K_BACKSPACE
+from pygame import Surface, Rect, KEYDOWN, K_RETURN, K_BACKSPACE, K_ESCAPE
 from pygame.ftfont import Font
 
 from asset.DBproxy import DBproxy
@@ -41,8 +41,9 @@ class Score:
                 if event.type == pygame.QUIT:
                     pygame.quit()
                 elif event.type == KEYDOWN:
-                    if event.key == K_RETURN and len(name) == 4:
+                    if event.key == K_RETURN and len(name) <= 4:
                         db_proxy.save({'name':name, 'score':score, 'date': get_formatted_date()})
+                        return
                     elif event.key == K_BACKSPACE:
                         name = name[:-1]
                     else:
@@ -59,15 +60,21 @@ class Score:
         self.score_text(48, 'TOP 10 SCORE', YELLOW, SCORE_POS['Title'])
         self.score_text(20, 'NAME           SCORE          DATE       ', ORANGE, SCORE_POS['Label'])
         db_proxy = DBproxy('DBScore.db')
-        list_score = db_proxy.retrieve_top10(10)
+        list_score = db_proxy.retrieve_top10()
         db_proxy.close()
-
+        
+        for player_score in list_score:
+            id_, name, score, date = player_score
+            self.score_text(20, f'{name}     {score:05d}     {date}', YELLOW,
+                            SCORE_POS[list_score.index(player_score)])
         while True:
-            pygame.display.flip()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
-            pass
+                if event.type == KEYDOWN:
+                    if event.key == K_ESCAPE:
+                        return
+            pygame.display.flip()
 
     def score_text(self, text_size:int, text:str, text_color:tuple, text_center_pos:tuple):
         text_font: Font = pygame.font.SysFont('Lucida Sans Typewriter', size=text_size)
@@ -77,7 +84,7 @@ class Score:
         pass
 
 def get_formatted_date():
-    current_datetime = datetime.now()
-    current_time = current_datetime_strftime("%H:%M")
-    current_date = current_datetime_strftime("%Y-%m-%d")
+    current_datetime = datetime.datetime.now()
+    current_time = current_datetime.strftime("%H:%M")
+    current_date = current_datetime.strftime("%Y-%m-%d")
     return f"{current_date} {current_time}"

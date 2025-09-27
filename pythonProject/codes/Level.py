@@ -12,7 +12,7 @@ from codes.Player import Player
 
 class Level:
     def __init__(self, window, name, game_mode, player_score: list[int]):
-        self.timeout = 2000
+        self.timeout = 20000
         self.window = window
         self.name= name
         self.game_mode = game_mode # 1=1P, 2=2P COOP, 3=2P COMP
@@ -27,7 +27,7 @@ class Level:
             player2.score = player_score[1]
             self.entity_list.append(player2)
 
-        pygame.time.set_timer(EVENT_ENEMY, 4000)
+        pygame.time.set_timer(EVENT_ENEMY, 2000)
         pygame.time.set_timer(EVENT_TIMEOUT, 100)
 
     def run(self, player_score: list[int]):
