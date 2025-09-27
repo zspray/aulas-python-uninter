@@ -4,7 +4,7 @@ import pygame
 from pygame import Surface, Rect, KEYDOWN, K_RETURN, K_BACKSPACE, K_ESCAPE
 from pygame.ftfont import Font
 
-from asset.DBproxy import DBproxy
+from codes.DBproxy import DBproxy
 from codes.Const import YELLOW, SCORE_POS, ORANGE, RED
 
 

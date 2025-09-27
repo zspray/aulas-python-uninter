@@ -25,7 +25,7 @@ PLAYER_KEY_LEFT = {'Player1': pygame.K_LEFT,
                      'Player2': pygame.K_a}
 PLAYER_KEY_RIGHT = {'Player1': pygame.K_RIGHT,
                       'Player2': pygame.K_d}
-PLAYER_KEY_SHOOT = {'Player1': pygame.K_f,
+PLAYER_KEY_SHOOT = {'Player1': pygame.K_RCTRL,
                      'Player2': pygame.K_LCTRL}
 
 # W
@@ -71,9 +71,9 @@ ENTITY_HEALTH = {
     'Level2Bg1': 999,
     'Level2Bg2': 999,
     'Level2Bg3': 999,
-    'Player1': 300,
+    'Player1': 200,
     'Player1Shot': 1,
-    'Player2': 300,
+    'Player2': 200,
     'Player2Shot': 1,
     'Enemy1': 50,
     'Enemy1Shot': 1,
